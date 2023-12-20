@@ -26,25 +26,24 @@ urlpatterns = [
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
-from django.conf.urls import url, include
 from rest_framework import routers
 from rest_example import views as rest_example_views
 
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
-router.register(r'users', rest_example_views.UserViewSet)
-router.register(r'groups', rest_example_views.GroupViewSet)
+router.register(r"users", rest_example_views.UserViewSet)
+router.register(r"groups", rest_example_views.GroupViewSet)
 # register custom models
-router.register(r'types', rest_example_views.TypeViewSet)
-router.register(r'products', rest_example_views.ProductViewSet)
+router.register(r"types", rest_example_views.TypeViewSet)
+router.register(r"products", rest_example_views.ProductViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    url(r'^', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path("admin/", admin.site.urls),
+    path(r"^", include(router.urls)),
+    path(r"^api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]
