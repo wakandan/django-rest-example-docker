@@ -5,7 +5,10 @@ from rest_example.serializers import (
     GroupSerializer,
     TypeSerializer,
     ProductSerializer,
+    EmployeeSerializer,
 )
+from rest_framework.views import APIView
+
 
 # custom models
 from .models import Type, Product
@@ -45,3 +48,10 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+
+class SearchView(APIView):
+    serializer_class = EmployeeSerializer
+
+    def post(self, request):
+        pass

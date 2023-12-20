@@ -309,6 +309,33 @@ paths:
       responses:
         '204':
           description: No response body
+  /search/:
+    post:
+      operationId: search_create
+      tags:
+      - search
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Employee'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Employee'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+          description: ''
   /types/:
     get:
       operationId: types_list
@@ -617,6 +644,35 @@ paths:
           description: No response body
 components:
   schemas:
+    Employee:
+      type: object
+      properties:
+        first_name:
+          type: string
+          maxLength: 200
+        last_name:
+          type: string
+          maxLength: 200
+        contact_info:
+          type: string
+          maxLength: 200
+        department:
+          type: string
+          maxLength: 200
+        position:
+          $ref: '#/components/schemas/PositionEnum'
+        location:
+          $ref: '#/components/schemas/LocationEnum'
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+      required:
+      - contact_info
+      - department
+      - first_name
+      - last_name
+      - location
+      - position
+      - status
     Group:
       type: object
       properties:
@@ -630,6 +686,16 @@ components:
       required:
       - name
       - url
+    LocationEnum:
+      enum:
+      - HO_CHI_MINH
+      - SINGAPORE
+      - NO_LOCATION
+      type: string
+      description: |-
+        * `HO_CHI_MINH` - Ho Chi Minh
+        * `SINGAPORE` - Singapore
+        * `NO_LOCATION` - No Location
     PatchedGroup:
       type: object
       properties:
@@ -694,6 +760,16 @@ components:
             format: uri
           description: The groups this user belongs to. A user will get all permissions
             granted to each of their groups.
+    PositionEnum:
+      enum:
+      - ASSISTANT_MANAGER
+      - DIRECTOR
+      - OTHER
+      type: string
+      description: |-
+        * `ASSISTANT_MANAGER` - ASSISTANT_MANAGER
+        * `DIRECTOR` - DIRECTOR
+        * `OTHER` - OTHER
     Product:
       type: object
       properties:
@@ -718,6 +794,16 @@ components:
       - description
       - name
       - type_id
+    StatusEnum:
+      enum:
+      - ACTIVE
+      - NOT_STARTED
+      - TERMINATED
+      type: string
+      description: |-
+        * `ACTIVE` - ACTIVE
+        * `NOT_STARTED` - NOT_STARTED
+        * `TERMINATED` - TERMINATED
     Type:
       type: object
       properties:
