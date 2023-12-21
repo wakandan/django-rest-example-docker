@@ -9,6 +9,7 @@ from rest_example.serializers import (
 )
 from rest_framework import generics
 from django.db.models import Q
+from rest_framework.response import Response
 
 
 # custom models
@@ -53,8 +54,9 @@ class ProductViewSet(viewsets.ModelViewSet):
 
 class SearchView(generics.ListAPIView):
     serializer_class = EmployeeSerializer
+    queryset = Employee.objects.all()
 
-    def post(self, request):
+    def list(self, request):
         status = request.data.get("status")
         contact_info = request.data.get("contact_info")
         location = request.data.get("location")
@@ -77,4 +79,5 @@ class SearchView(generics.ListAPIView):
             query &= Q(position=position)
 
         employees = Employee.objects.filter(query)
-        return employees
+        serializer = EmployeeSerializer(employees, many=True)
+        return Response(serializer.data)

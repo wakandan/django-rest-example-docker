@@ -44,7 +44,7 @@ router.register(r"products", rest_example_views.ProductViewSet)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("search/", rest_example_views.SearchView.as_view()),
+    path("search/", rest_example_views.SearchView.as_view(), name="search"),
     path(r"^", include(router.urls)),
     path(r"^api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]
