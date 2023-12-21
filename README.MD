@@ -1,11 +1,11 @@
 # USAGE
 
 ```
-$ git clone https://github.com/minhng92/django-rest-example-docker
+$ git clone https://github.com/wakandan/django-rest-example-docker
 $ cd django-rest-example-docker
 $ docker-compose build
 # create admin user, fill in the admin user's password
-$ docker-compose run web bash -c "python manage.py makemigrations rest_example && python manage.py migrate && python manage.py createsuperuser --email admin@example.com --username admin"
+$ make create-super-user 
 $ docker-compose up
 
 Go to http://localhost:8000 or http://localhost:8000/admin
@@ -14,18 +14,25 @@ Log in with admin user:
 + Password: <the password you filled in at the step creating admin user>
 ```
 
-## Migrate DB and create super user (once time set up)
+## Setup for development
+
+I'm using conda for development
+
 ```
-$ docker-compose run web bash -c "python manage.py makemigrations rest_example && python manage.py migrate && python manage.py createsuperuser --email admin@example.com --username admin"
-Password: password123
-Password (again): password123
-Bypass password validation and create user anyway? [y/N]: y
-Superuser created successfully.
+conda create -n django-rest-example python=3.9
+conda activate django-rest-example
+pip install -r requirements.txt 
+```
+
+## Show openapi documentation
+
+```
+make openapi
 ```
 
 ## Migrate DB for rest_example module
 ```
-$ docker-compose run web bash -c "python manage.py makemigrations rest_example && python manage.py migrate"
+make migrate
 ```
 
 ## Start server
@@ -44,8 +51,3 @@ $ docker-compose up -d
 
 * Go to `http://localhost:8000` to browse public RESTful APIs
 * Django Admin: `http://localhost:8000/admin`
-
-## References
-
-+ [https://docs.docker.com/compose/django/](https://docs.docker.com/compose/django/)
-+ [https://www.django-rest-framework.org/tutorial/quickstart/](https://www.django-rest-framework.org/tutorial/quickstart/)

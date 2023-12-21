@@ -2,7 +2,7 @@ from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 
 # custom models
-from .models import Employee, Type, Product
+from .models import Employee
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -29,16 +29,3 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
         fields = ("url", "name")
-
-
-# create serializer for custom models
-class TypeSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Type
-        fields = ("name", "active")
-
-
-class ProductSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Product
-        fields = ("type_id", "name", "price", "quantity", "description")

@@ -3,8 +3,6 @@ from rest_framework import viewsets
 from rest_example.serializers import (
     UserSerializer,
     GroupSerializer,
-    TypeSerializer,
-    ProductSerializer,
     EmployeeSerializer,
 )
 from rest_framework import generics
@@ -14,7 +12,7 @@ from rest_framework.views import APIView
 
 
 # custom models
-from .models import Employee, LocationsEnum, PositionsEnum, Type, Product, StatusEnum
+from .models import Employee, LocationsEnum, PositionsEnum, StatusEnum
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -33,24 +31,6 @@ class GroupViewSet(viewsets.ModelViewSet):
 
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-
-
-class TypeViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-
-    queryset = Type.objects.all()
-    serializer_class = TypeSerializer
-
-
-class ProductViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
 
 
 class SearchView(generics.ListAPIView):
