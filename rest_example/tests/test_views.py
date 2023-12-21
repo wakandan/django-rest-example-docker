@@ -1,6 +1,8 @@
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework.test import APIClient, APITestCase
+from django.core.cache import cache
+from django.conf import settings
 
 # Create your tests here.
 
@@ -16,6 +18,7 @@ class TestSearchView(APITestCase):
     def setUp(self) -> None:
         self.url = reverse("search")
         self.client = APIClient()
+        cache.clear()
 
     def test_search_api_by_status(self):
         response = self.client.get(self.url, data={"status": "ACTIVE"})
@@ -52,3 +55,15 @@ class TestSearchView(APITestCase):
         self.assertEqual(response.status_code, 200)
         response_json = response.json()
         self.assertEqual(2, len(response_json))
+
+
+class TestRateLimiter(TestCase):
+    def setUp(self) -> None:
+        self.url = reverse("search")
+        self.client = APIClient()
+
+    def test_rate_limiter(self):
+        for i in range(settings.RATE_LIMITER_MAX_REQUESTS_PER_MIN + 10):
+            response = self.client.get(self.url)
+            if i > settings.RATE_LIMITER_MAX_REQUESTS_PER_MIN:
+                self.assertEqual(403, response.status_code)

@@ -50,6 +50,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "rest_example.middlewares.RateLimitMiddleware",
 ]
 
 ROOT_URLCONF = "django_rest_example_docker.urls"
@@ -83,7 +84,7 @@ DATABASES = {
         "USER": "postgres",
         "HOST": "db",
         "PORT": 5432,
-        "PASSWORD": "password"
+        "PASSWORD": "password",
     }
 }
 
@@ -136,3 +137,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = "/static/"
+
+RATE_LIMITER_MAX_REQUESTS_PER_MIN = 10
