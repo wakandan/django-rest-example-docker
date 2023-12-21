@@ -31,6 +31,9 @@ class PositionsEnum(Enum):
     ASSISTANT_MANAGER = "ASSISTANT_MANAGER"
     DIRECTOR = "DIRECTOR"
     OTHER = "OTHER"
+    INTERN = "INTERN"
+    EMPLOYEE = "EMPLOYEE"
+    VICE_PRESIDENT = "VICE_PRESIDENT"
 
 
 class StatusEnum(Enum):
@@ -44,6 +47,7 @@ class Employee(models.Model):
     last_name = models.CharField("Last Name", max_length=200)
     contact_info = models.CharField("Contact Info", max_length=200)
     department = models.CharField("Department", max_length=200)
+    company = models.CharField("Company", max_length=200, null=True)
     position = models.CharField(
         "Position", max_length=200, choices=[(e.name, e.value) for e in PositionsEnum]
     )

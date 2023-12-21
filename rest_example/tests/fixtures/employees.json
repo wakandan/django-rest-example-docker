@@ -1,0 +1,58 @@
+[
+    {
+        "model": "rest_example.Employee",
+        "pk": 1,
+        "fields": {
+            "first_name": "first name 001",
+            "last_name": "last name 001",
+            "contact_info": "001002",
+            "department": "Marketing",
+            "position": "DIRECTOR",
+            "location": "HO_CHI_MINH",
+            "status": "ACTIVE",
+            "company": "Singtel"
+        }
+    },
+    {
+        "model": "rest_example.Employee",
+        "pk": 2,
+        "fields": {
+            "first_name": "first name 002",
+            "last_name": "last name 002",
+            "contact_info": "second@gmail.com",
+            "department": "Sale",
+            "position": "ASSISTANT_MANAGER",
+            "location": "SINGAPORE",
+            "status": "ACTIVE",
+            "company": "Starhub"
+        }
+    },
+    {
+        "model": "rest_example.Employee",
+        "pk": 3,
+        "fields": {
+            "first_name": "first name 003",
+            "last_name": "last name 003",
+            "contact_info": "third@yahoo.com",
+            "department": "Customer Relation",
+            "position": "EMPLOYEE",
+            "location": "NO_LOCATION",
+            "status": "ACTIVE",
+            "company": "NTUC"
+        }
+    },
+    {
+        "model": "rest_example.Employee",
+        "pk": 4,
+        "fields": {
+            "first_name": "first name 004",
+            "last_name": "last name 004",
+            "contact_info": "098812211",
+            "department": "IT",
+            "position": "EMPLOYEE",
+            "location": "NO_LOCATION",
+            "status": "TERMINATED",
+            "company": "NTUC"
+        }
+    }
+]

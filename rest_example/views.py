@@ -10,6 +10,7 @@ from rest_example.serializers import (
 from rest_framework import generics
 from django.db.models import Q
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 
 # custom models
@@ -56,26 +57,27 @@ class SearchView(generics.ListAPIView):
     serializer_class = EmployeeSerializer
     queryset = Employee.objects.all()
 
-    def list(self, request):
-        status = request.data.get("status")
-        contact_info = request.data.get("contact_info")
-        location = request.data.get("location")
-        company = request.data.get("company")
-        department = request.data.get("department")
-        position = request.data.get("position")
+    def get(self, request):
+        data = request.query_params
+        status = data.get("status")
+        contact_info = data.get("contact_info")
+        location = data.get("location")
+        company = data.get("company")
+        department = data.get("department")
+        position = data.get("position")
 
         query = Q()
-        if status and status in [e.name for e in StatusEnum]:
+        if status:
             query &= Q(status=status)
         if contact_info:
             query &= Q(contact_info=contact_info)
-        if location and location in [e.name for e in LocationsEnum]:
+        if location:
             query &= Q(location=location)
         if company:
             query &= Q(company=company)
         if department:
             query &= Q(department=department)
-        if position and position in [e.name for e in PositionsEnum]:
+        if position:
             query &= Q(position=position)
 
         employees = Employee.objects.filter(query)
